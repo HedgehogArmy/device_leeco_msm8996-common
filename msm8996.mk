@@ -343,7 +343,7 @@ PRODUCT_COPY_FILES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service \
+    android.hardware.usb@1.0-service.msm8996 \
     com.android.future.usb.accessory
 
 PRODUCT_COPY_FILES += \
