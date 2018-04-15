@@ -165,7 +165,8 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libtinyxml \
     libqdMetaData \
-    libqdMetaData.system
+    libqdMetaData.system \
+    libvulkan
 
 PRODUCT_PACKAGES += \
     vendor.display.config@1.1 \
@@ -351,9 +352,9 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
 
-# VNDK-SP:
+# VNDK:
 PRODUCT_PACKAGES += \
-    vndk-sp
+vndk_package
 
 PRODUCT_COPY_FILES += \
     prebuilts/vndk/v27/arm64/arch-arm64-armv8-a/shared/vndk-core/android.hardware.gnss@1.0.so:system/lib64/android.hardware.gnss@1.0-v27.so
