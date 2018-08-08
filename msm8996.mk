@@ -316,8 +316,8 @@ PRODUCT_PACKAGES += \
     rcs_service_api.xml
 
 # Recovery
-PRODUCT_PACKAGES += \
-    librecovery_updater_leeco
+#PRODUCT_PACKAGES += \
+#    librecovery_updater_leeco
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \

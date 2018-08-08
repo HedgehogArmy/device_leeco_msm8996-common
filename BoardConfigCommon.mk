@@ -217,7 +217,7 @@ WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Recovery
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_leeco
+#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_leeco
 
 #RECOVERY_VARIANT := twrp
 BOARD_HAS_LARGE_FILESYSTEM := true
