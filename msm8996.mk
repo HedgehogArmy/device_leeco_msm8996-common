@@ -340,11 +340,11 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-service
 
 # Telephony
-PRODUCT_PACKAGES += \
-    telephony-ext
+#PRODUCT_PACKAGES += \
+#    telephony-ext
 
-PRODUCT_BOOT_JARS += \
-    telephony-ext
+#PRODUCT_BOOT_JARS += \
+#    telephony-ext
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
