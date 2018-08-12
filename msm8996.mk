@@ -19,6 +19,9 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 #   $(LOCAL_PATH)/overlay-lineage
 
+#Vendor kernel headers
+PRODUCT_VENDOR_KERBEL_HEADERS := hardware/qcom/msm8996/kernel-headers
+
 # System properties
 -include $(LOCAL_PATH)/system_prop.mk
 
@@ -86,7 +89,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@2.0-impl \
+   #, android.hardware.audio.effect@2.0-impl \
     audio.a2dp.default \
     audio.primary.msm8996 \
     audio.r_submix.default \
