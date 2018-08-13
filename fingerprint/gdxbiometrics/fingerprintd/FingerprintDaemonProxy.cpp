@@ -21,7 +21,6 @@
 #include <hardware/hardware.h>
 #include <hardware/fingerprint.h>
 #include <hardware/hw_auth_token.h>
-#include <keystore/IKeystoreService.h>
 #include <keystore/keystore.h> // for error codes
 #include <utils/Log.h>
 
