@@ -1,1 +1,1 @@
-r_dir_file(energyawareness, sysfs)
+#r_dir_file(energyawareness, sysfs)
