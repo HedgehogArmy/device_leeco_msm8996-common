@@ -225,8 +225,8 @@ PRODUCT_PACKAGES += \
     android.hidl.manager@1.0
 
 # IMS
-PRODUCT_PACKAGES += \
-    ims-ext-common
+#PRODUCT_PACKAGES += \
+#    ims-ext-common
 
 # IPA Manager
 #PRODUCT_PACKAGES += \
@@ -326,12 +326,12 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
 
-# Telephony
-PRODUCT_PACKAGES += \
-    telephony-ext
+## Telephony
+#PRODUCT_PACKAGES += \
+#    telephony-ext
 
-PRODUCT_BOOT_JARS += \
-    telephony-ext
+#PRODUCT_BOOT_JARS += \
+#    telephony-ext
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
