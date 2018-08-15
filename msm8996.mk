@@ -19,9 +19,6 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 #   $(LOCAL_PATH)/overlay-lineage
 
-#Vendor kernel headers
-PRODUCT_VENDOR_KERBEL_HEADERS := hardware/qcom/msm8996/kernel-headers
-
 # System properties
 -include $(LOCAL_PATH)/system_prop.mk
 
