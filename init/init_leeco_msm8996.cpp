@@ -37,7 +37,6 @@
 #include <sys/types.h>
 
 #include <android-base/file.h>
-#include <android-base/logging.h>
 #include <android-base/properties.h>
 #include <android-base/strings.h>
 
@@ -46,7 +45,10 @@
 
 #include "vendor_init.h"
 #include "property_service.h"
-#include "util.h"
+
+using android::base::GetProperty;
+using android::init::property_set;
+using android::init::import_kernel_cmdline;
 
 #define DEVINFO_FILE "/dev/block/sde21"
 
