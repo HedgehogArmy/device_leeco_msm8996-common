@@ -1,1 +1,1 @@
-set_prop(ims, debug_prop)
+get_prop(ims, diag_prop);

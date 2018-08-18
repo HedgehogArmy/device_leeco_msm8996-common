@@ -5,6 +5,7 @@
  *  for attribution purposes only.
  *
  * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,20 +24,22 @@
 #define _BDROID_BUILDCFG_H
 
 #include <cutils/properties.h>
-#include <string.h>
-static inline const char *BtmGetDefaultName()
+
+static inline const char* BtmGetDefaultName()
 {
-    char product_device[PROPERTY_VALUE_MAX];
-    property_get("ro.product.device", product_device, "");
+    int32_t rf_version = property_get_int32("ro.boot.rf_version", 0);
 
-    if (strcmp(product_device, "le_zl0") == 0)
-        return "LePro 3";
-    if (strcmp(product_device, "le_zl1") == 0)
-        return "LePro 3";
-    if (strcmp(product_device, "le_x2") == 0)
-        return "Le Max 2";
+    switch (rf_version) {
+    case 11:
+    case 21:
+    case 31:
+        return "OnePlus 3";
+    case 12:
+    case 22:
+    case 32:
+        return "OnePlus 3T";
+    }
 
-    // Fallback to ro.product.model
     return "";
 }
 
