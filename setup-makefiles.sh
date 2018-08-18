@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2016 The CyanogenMod Project
-# Copyright (C) 2017 The LineageOS Project
+#           (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@
 set -e
 
 # Required!
-DEVICE_COMMON=msm8996-common
-VENDOR=leeco
+DEVICE=oneplus3
+VENDOR=oneplus
+
+INITIAL_COPYRIGHT_YEAR=2016
 
 # Load extractutils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -36,28 +38,47 @@ fi
 . "$HELPER"
 
 # Initialize the helper
-setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true
-
-# Copyright headers and guards
-write_headers "zl1 x2"
-
-# Common QC blobs
-write_makefiles "$MY_DIR"/proprietary-files-qc.txt
-
-# QC Perf blobs
-write_makefiles "$MY_DIR"/proprietary-files-qc-perf.txt
-
-# We are done with common
-write_footers
-
-# Initialize the helper for device
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT"
 
 # Copyright headers and guards
 write_headers
 
-# The device blobs
-write_makefiles "$MY_DIR"/../$DEVICE/proprietary-files.txt
+# The standard blobs
+write_makefiles "$MY_DIR"/proprietary-files.txt true
 
-# We are done with device
+# Qualcomm BSP blobs - we put a conditional around here
+# in case the BSP is actually being built
+printf '\n%s\n' "ifeq (\$(QCPATH),)" >> "$PRODUCTMK"
+printf '\n%s\n' "ifeq (\$(QCPATH),)" >> "$ANDROIDMK"
+
+write_makefiles "$MY_DIR"/proprietary-files-qc.txt true
+
+# Qualcomm performance blobs - conditional as well
+# in order to support Cyanogen OS builds
+cat << EOF >> "$PRODUCTMK"
+endif
+
+-include vendor/extra/devices.mk
+ifneq (\$(call is-qc-perf-target),true)
+EOF
+
+cat << EOF >> "$ANDROIDMK"
+endif
+
+ifneq (\$(TARGET_HAVE_QC_PERF),true)
+EOF
+
+write_makefiles "$MY_DIR"/proprietary-files-qc-perf.txt true
+
+echo "endif" >> "$PRODUCTMK"
+
+cat << EOF >> "$ANDROIDMK"
+
+endif
+
+\$(shell mkdir -p \$(PRODUCT_OUT)/system/vendor/lib/egl && pushd \$(PRODUCT_OUT)/system/vendor/lib > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
+\$(shell mkdir -p \$(PRODUCT_OUT)/system/vendor/lib64/egl && pushd \$(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
+EOF
+
+# We are done!
 write_footers

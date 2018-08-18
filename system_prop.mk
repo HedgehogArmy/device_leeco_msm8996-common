@@ -1,224 +1,198 @@
 #
-# System Properties for msm8996-common
+# system.prop for msm8996
 #
 
-# system props for the MM modules
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio.deep_buffer.media=true \
-    media.stagefright.enable-player=true \
-    media.stagefright.enable-http=true \
-    media.stagefright.enable-aac=true \
-    media.stagefright.enable-qcp=true \
-    media.stagefright.enable-fma2dp=true \
-    media.stagefright.enable-scan=true \
-    mmp.enable.3g2=true \
-    mm.enable.smoothstreaming=true \
-    mm.enable.qcom_parser=4194303 \
-    persist.mm.enable.prefetch=true
+#rild.libpath=/system/lib/libreference-ril.so
+rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
+#rild.libargs=-d /dev/smd0
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+ril.subscription.types=NV,RUIM
+DEVICE_PROVISIONED=1
+# Start in global mode
+#ro.telephony.default_network=10
 
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
+debug.sf.enable_hwc_vds=1
+debug.sf.hw=1
+debug.sf.latch_unsignaled=1
+debug.egl.hw=1
+debug.gralloc.enable_fb_ubwc=1
+dev.pm.dyn_samplingrate=1
+persist.demo.hdmirotationlock=false
+sdm.debug.disable_skip_validate=1
+debug.sf.recomputecrop=0
+ro.sf.lcd_density=480
+
+#ifdef VENDOR_EDIT
+#liuhuisheng@OnePlus 20171016 for input
+persist.vendor.qti.inputopts.enable=true
+persist.vendor.qti.inputopts.movetouchslop=0.6
+#endif /* VENDOR_EDIT */
+
+#ro.hdmi.enable=true
+#
+# system props for the cne module
+#
+persist.cne.feature=1
+
+#system prop for enabling/disabling Android XLAT
+persist.net.doxlat=false
+
+#system props for the MM modules
+media.stagefright.enable-player=true
+media.stagefright.enable-http=true
+media.stagefright.enable-aac=true
+media.stagefright.enable-qcp=true
+media.stagefright.enable-scan=true
+mmp.enable.3g2=true
+media.aac_51_output_enabled=true
+mm.enable.smoothstreaming=true
+#media.settings.xml=/vendor/etc/media_profiles_vendor.xml
+#185971 is decimal sum of supported parsers in AAL
+#37491 is decimal sum of supported codecs in AAL
+#codecs:(PARSER_)AAC AC3 AMR_NB AMR_WB ASF AVI DTS FLV 3GP 3G2 MKV MP2PS MP2TS MP3 OGG QCP WAV FLAC AIFF APE
+#mm.enable.qcom_parser=1048575
+persist.mm.enable.prefetch=true
 
 # Additional i/p buffer in case of encoder DCVS
-PRODUCT_PROPERTY_OVERRIDES += \
-    vidc.enc.dcvs.extra-buff-count=2
+vidc.enc.dcvs.extra-buff-count=2
 
-# Set default power mode to low power for encoder
-PRODUCT_PROPERTY_OVERRIDES += \
-    vidc.debug.perf.mode=2
+# disable PQ feature by default
+vendor.vidc.enc.disable.pq=true
 
-# Audio
-PRODUCT_PROPERTY_OVERRIDES += \
-    af.fast_track_multiplier=1 \
-    audio.heap.size.multiplier=7 \
-    audio.offload.min.duration.secs=30 \
-    audio.offload.video=true \
-    persist.audio.ssr.3mic=false \
-    persist.vendor.audio.fluence.audiorec=false \
-    persist.vendor.audio.fluence.speaker=true \
-    persist.vendor.audio.fluence.voicecall=true \
-    persist.vendor.audio.fluence.voicerec=false \
-    ro.vendor.audio.sdk.fluencetype=fluence \
-    ro.vendor.audio.sdk.ssr=false \
-    vendor.audio.dolby.ds2.enabled=false \
-    vendor.audio.dolby.ds2.hardbypass=false
-    vendor.audio.flac.sw.decoder.24bit=true \
-    vendor.audio_hal.period_size=192 \
-    vendor.audio.hw.aac.encoder=true \
-    vendor.audio.offload.buffer.size.kb=64 \
-    vendor.audio.offload.gapless.enabled=true \
-    vendor.audio.offload.multiaac.enable=true \
-    vendor.audio.offload.multiple.enabled=true \
-    vendor.audio.offload.passthrough=false \
-    vendor.audio.offload.pcm.16bit.enable=true \
-    vendor.audio.offload.pcm.24bit.enable=true \
-    vendor.audio.offload.pstimeout.secs=3 \
-    vendor.audio.offload.track.enable=false \
-    vendor.audio.parser.ip.buffer.size=262144 \
-    vendor.audio.safx.pbe.enabled=true \
-    vendor.audio.tunnel.encode=false \
-    vendor.audio.use.sw.alac.decoder=true \
-    vendor.audio.use.sw.ape.decoder=true \
-    vendor.voice.path.for.pcm.voip=true
+#
+# system props for the data modules
+#
+ro.use_data_netmgrd=true
+persist.data.netmgrd.qos.enable=true
+persist.data.mode=concurrent
 
-# Bluetooth
-PRODUCT_PROPERTY_OVERRIDES += \
-    bt.max.hfpclient.connections=1 \
-    qcom.bluetooth.soc=rome \
-    ro.bluetooth.ftm_enabled=true \
-    ro.bluetooth.wipower=true \
-    ro.bluetooth.emb_wp_mode=true
+#system props for time-services
+persist.timed.enable=true
+
+# system property for maximum number of HFP client connections
+bt.max.hfpclient.connections=1
 
 # System property for cabl
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.cabl=2
+ro.qualcomm.cabl=2
 
-# Property for vendor specific library
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.gt_library=libqti-gt.so \
-    ro.vendor.at_library=libqti-at.so \
-    sys.games.gt.prof=1
+# Property to enable display default color mode
+vendor.display.enable_default_color_mode=1
 
-# Camera
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=1 \
-    persist.camera.imglib.fddsp=1 \
-    persist.camera.llc=1 \
-    persist.camera.llnoise=1 \
+#
+# System props for telephony
+# System prop to turn on CdmaLTEPhone always
+#telephony.lteOnCdmaDevice=1
 
-# CNE
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.cne.feature=1
+#Simulate sdcard on /data/media
+#
+persist.fuse_sdcard=true
 
-# Data modules
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.use_data_netmgrd=true \
-    persist.data.netmgrd.qos.enable=true \
-    persist.data.mode=concurrent
+#
+#snapdragon value add features
+#
 
-# GPS
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.gps.qc_nlp_in_use=0 \
-    ro.gps.agps_provider=1
+#system prop for RmNet Data
+persist.rmnet.data.enable=true
+persist.data.wda.enable=true
+persist.data.df.dl_mode=5
+persist.data.df.ul_mode=5
+persist.data.df.agg.dl_pkt=10
+persist.data.df.agg.dl_size=4096
+persist.data.df.mux_count=8
+persist.data.df.iwlan_mux=9
+persist.data.df.dev_name=rmnet_usb0
 
-# Graphics
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.hw=1 \
-    debug.egl.hw=1 \
-    debug.gralloc.enable_fb_ubwc=1 \
-    dev.pm.dyn_samplingrate=1 \
-    persist.demo.hdmirotationlock=false \
-    persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0 \
-    sdm.perf_hint_window=50 \
-    persist.hwc.enable_vds=1 \
-    sdm.debug.disable_rotator_split=1 \
-    ro.persist.qcapb=1
+#property to enable user to access Google WFD settings
+persist.debug.wfd.enable=1
+##property to choose between virtual/external wfd display
+persist.sys.wfd.virtual=0
 
-# OpenGLES
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196610
+#property to enable sde downscale feature for external display
+#sdm.debug.downscale_external=1
 
-#enable Apical AD
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qcom.ad=1 \
-    ro.qcom.ad.sensortype=3
+#property to specify the number of frames to skip before setting hint
+sdm.perf_hint_window=50
 
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.am.reschedule_service=true \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.min_freq_0=307200 \
-    ro.min_freq_4=307200 \
-    ro.sys.fw.bg_apps_limit=60
+# system prop for NFC DT
+ro.nfc.port=I2C
 
-# QCOM
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.frp.pst="/dev/block/bootdevice/by-name/frp" \
-    drm.service.enabled=true
+#property to enable WFD WL solution
+#ro.vendor.wl_library=libqti-wl.so
 
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    rild.libpath="/vendor/lib64/libril-qc-qmi-1.so" \
-    persist.rild.nitz_plmn="" \
-    persist.rild.nitz_long_ons_0="" \
-    persist.rild.nitz_long_ons_1="" \
-    persist.rild.nitz_long_ons_2="" \
-    persist.rild.nitz_long_ons_3="" \
-    persist.rild.nitz_short_ons_0="" \
-    persist.rild.nitz_short_ons_1="" \
-    persist.rild.nitz_short_ons_2="" \
-    persist.rild.nitz_short_ons_3="" \
-    ril.subscription.types=NV,RUIM \
-    DEVICE_PROVISIONED=1 \
-    persist.volte_enalbed_by_hw=1 \
-    persist.radio.data_ltd_sys_ind=1 \
-    ro.telephony.default_network=10,10 \
-    telephony.lteOnCdmaDevice=1 \
-    ro.telephony.call_ring.multiple=false \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.custom_ecc=1 \
-    persist.radio.sib16_support=1 \
-    persist.data.qmi.adb_logmask=0 \
-    persist.net.doxlat=true \
-    persist.oem.dump=0 \
-    persist.radio.hw_mbn_update=0 \
-    persist.radio.sw_mbn_update=0 \
-    persist.radio.start_ota_daemon=0 \
-    persist.data.iwlan.enable=true \
-    persist.radio.VT_ENABLE=1 \
-    persist.radio.REVERSE_QMI=0 \
-    persist.radio.ROTATION_ENABLE=1 \
-    persist.dbg.volte_avail_ovr=1 \
-    persist.dbg.vt_avail_ovr=1
+#property for vendor specific library
+#ro.vendor.gt_library=libqti-gt.so
+#ro.vendor.at_library=libqti-at.so
+#sys.games.gt.prof=1
 
-#default SAR mode 0:off/1:on
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.sar_mode=1
+#default usb composition
+#persist.sys.usb.config=diag,serial_cdev,serial_tty,rmnet_ipa,mass_storage,adb
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.calls.on.ims=true \
-    persist.radio.jbims=true \
-    persist.rcs.supported=1 \
-    persist.radio.domain.ps=false \
-    persist.radio.csvt.enabled=false \
-    persist.vendor.radio.cs_srv_type=0 \
-    persist.vendor.radio.rat_on=combine \
-    persist.vendor.radio.mt_sms_ack=20 \
-    persist.vendor.radio.ignore_dom_time=5 \
-    persist.vendor.radio.force_on_dc=true \
-    persist.vendor.radio.facnotsup_as_nonw=1
+#property to enable VDS WFD solution
+persist.hwc.enable_vds=1
 
-# RmNet Data
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.rmnet.data.enable=true \
-    persist.data.wda.enable=true \
-    persist.data.df.dl_mode=5 \
-    persist.data.df.ul_mode=5 \
-    persist.data.df.agg.dl_pkt=10 \
-    persist.data.df.agg.dl_size=4096 \
-    persist.data.df.mux_count=8 \
-    persist.data.df.iwlan_mux=9 \
-    persist.data.df.dev_name=rmnet_usb0
+#Enable stm events
+persist.debug.coresight.config=stm-events
+#property to enable fingerprint
+persist.qfp=false
 
-# Timeservice
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.timed.enable=true
+#default pd_enable value
+persist.sys.pd_enable=0
+#Disable rotator split feature
+sdm.debug.disable_rotator_split=1
 
-# Wifi
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
+#Increase cached app limit
+ro.vendor.qti.sys.fw.bg_apps_limit=60
 
-# SSR
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.ssr.restart_level=ALL_ENABLE
+# Create zram disk
+#ro.vendor.qti.config.zram=true
 
-# Fastcharge
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.le_fast_chrg_enable=1
+#Camera fullscreen doesn't show navigation bar
+Camera.no_navigation_bar=true
 
-# Volte
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.VT_HYBRID_ENABLE=1 \
-    persist.dbg.wfc_avail_ovr=1
+#ifdef VENDOR_EDIT
+#yangfb 20160919 ,modify to set cutoff voltage to 3250mv
+ro.cutoff_voltage_mv=3250
+#endif
+
+#property for game detection feature
+debug.enable.gamed=0
+
+#Disable face beautification
+persist.ts.postmakeup=false
+persist.ts.rtmakeup=false
+
+#Enable device orientation sensor
+ro.qti.sensors.dev_ori=false
+ro.qti.sensors.pmd=false
+ro.qti.sensors.sta_detect=false
+ro.qti.sensors.mot_detect=false
+
+#mbn ota config
+persist.vendor.radio.hw_mbn_update=0
+persist.vendor.radio.sw_mbn_update=0
+#enable persist.radio.start_ota_daemon only for 8994 and 8996, NOT for 8998, 20170821
+persist.vendor.radio.start_ota_daemon=1
+
+#VENDOR_EDIT chenzhongping add it
+persist.vendor.radio.ignore_dom_time=10
+persist.vendor.radio.rat_on=combine
+persist.data.iwlan.enable=true
+persist.vendor.radio.data_ltd_sys_ind=1
+persist.vendor.radio.data_con_rprt=1
+persist.radio.efssync=true
+#end
+
+# Display power reduction (FOSS)
+ro.qcom.dpps.sensortype=3
+ro.qualcomm.display.paneltype=1
+ro.qualcomm.foss=1
+config.foss.xml=1
+config.foss.path=/vendor/etc/FOSSConfig.xml
