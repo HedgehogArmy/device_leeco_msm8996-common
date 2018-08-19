@@ -147,6 +147,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
+# Healthd
+PRODUCT_PACKAGES += \
+    android.hardware.health@1.0-convert \
+    android.hardware.health@1.0-impl \
+    android.hardware.health@1.0-service
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -201,6 +207,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl-qti \
     android.hardware.gnss@1.0-service-qti \
+    android.hardware.gnss@1.0-service \
+    android.hardware.gnss@1.0-impl:64 \
     libgnss \
     libgnsspps \
     libcurl
@@ -221,9 +229,9 @@ PRODUCT_PACKAGES += \
 
 # HIDL
 PRODUCT_PACKAGES += \
-    android.hidl.manager@1.0-java \
     android.hidl.base@1.0 \
-    android.hidl.manager@1.0
+    android.hidl.manager@1.0 \
+    android.hidl.manager@1.0-java
 
 # IMS
 PRODUCT_PACKAGES += \
