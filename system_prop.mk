@@ -88,8 +88,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.llnoise=1 \
 
 # CNE
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.cne.feature=1
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    persist.cne.feature=1
 
 # Data modules
 PRODUCT_PROPERTY_OVERRIDES += \

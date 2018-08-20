@@ -144,8 +144,8 @@ PRODUCT_PACKAGES += \
 #    vendor.qti.hardware.camera.device@1.0_vendor
 
 # Connectivity Engine support (CNE)
-PRODUCT_PACKAGES += \
-    libcnefeatureconfig
+#PRODUCT_PACKAGES += \
+#    libcnefeatureconfig
 
 # Display
 PRODUCT_PACKAGES += \
