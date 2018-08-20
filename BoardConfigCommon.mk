@@ -97,7 +97,7 @@ BOARD_USES_ALSA_AUDIO := true
 USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bionic
-TARGET_LD_SHIM_LIBS := /system/vendor/lib/libmmcamera_ppeiscore.so|libshims_camera.so:/system/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
+#TARGET_LD_SHIM_LIBS := /system/vendor/lib/libmmcamera_ppeiscore.so|libshims_camera.so:/system/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth
@@ -108,8 +108,8 @@ QCOM_BT_USE_BTNV := true
 QCOM_BT_USE_SMD_TTY := true
 
 # Camera
-USE_DEVICE_SPECIFIC_CAMERA := true
-DEVICE_SPECIFIC_CAMERA_PATH := $(PLATFORM_PATH)/camera
+#USE_DEVICE_SPECIFIC_CAMERA := true
+#DEVICE_SPECIFIC_CAMERA_PATH := $(PLATFORM_PATH)/camera
 TARGET_SUPPORT_HAL1 := false
 TARGET_USES_MEDIA_EXTENSIONS := true
 TARGET_USES_QTI_CAMERA2CLIENT := true
