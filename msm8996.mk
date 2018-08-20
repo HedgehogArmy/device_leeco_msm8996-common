@@ -131,17 +131,17 @@ PRODUCT_PACKAGES += \
     libbt-vendor
 
 # Camera
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl \
-    camera.device@3.2-impl \
-    camera.msm8996 \
-    libshims_camera \
-    libshims_qcamera-daemon \
-    Snap
+#PRODUCT_PACKAGES += \
+#    android.hardware.camera.provider@2.4-impl \
+#    camera.device@3.2-impl \
+#    camera.msm8996 \
+#    libshims_camera \
+#    libshims_qcamera-daemon \
+#    Snap
 
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.camera.device@1.0 \
-    vendor.qti.hardware.camera.device@1.0_vendor
+#PRODUCT_PACKAGES += \
+#    vendor.qti.hardware.camera.device@1.0 \
+#    vendor.qti.hardware.camera.device@1.0_vendor
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
