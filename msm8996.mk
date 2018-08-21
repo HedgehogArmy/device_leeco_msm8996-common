@@ -166,6 +166,7 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libqdMetaData \
     libqdMetaData.system \
+    libqdutils \
     libvulkan
 
 PRODUCT_PACKAGES += \
