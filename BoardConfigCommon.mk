@@ -60,10 +60,6 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
-# Properties
-BOARD_VNDK_RUNTIME_DISABLE :=  # must not be set
-BOARD_VNDK_VERSION := current
-
 # ANT+
 #BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
 

@@ -167,8 +167,7 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libtinyxml \
     libqdMetaData \
-    libqdMetaData.system \
-    libvulkan
+    libqdMetaData.system
 
 PRODUCT_PACKAGES += \
     vendor.display.config@1.1 \
@@ -355,9 +354,9 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
 
-# VNDK:
+# VNDK-SP:
 PRODUCT_PACKAGES += \
-vndk_package
+    vndk-sp
 
 # VR
 PRODUCT_PACKAGES += \
