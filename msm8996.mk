@@ -167,6 +167,7 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libtinyxml \
     libqdMetaData \
+	libqdutils \
     libqdMetaData.system
 
 PRODUCT_PACKAGES += \
