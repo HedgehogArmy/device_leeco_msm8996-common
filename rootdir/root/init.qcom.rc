@@ -81,11 +81,11 @@ on late-fs
     write /sys/block/sda/queue/nr_requests 256
 
     # Start services for bootanim
+    start vendor.configstore-hal
     start surfaceflinger
     start bootanim
     start hwcomposer-2-1
-    start configstore-hal-1-0
-    start gralloc-2-0
+    start vendor.gralloc-2-0
 
     # Mount RW partitions which need run fsck
     mount_all fstab.qcom --late
