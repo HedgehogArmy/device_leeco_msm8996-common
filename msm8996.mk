@@ -137,7 +137,7 @@ PRODUCT_PACKAGES += \
     camera.msm8996 \
     libshims_camera \
     libshims_qcamera-daemon \
-    Snap
+    Camera2
 
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.camera.device@1.0 \
