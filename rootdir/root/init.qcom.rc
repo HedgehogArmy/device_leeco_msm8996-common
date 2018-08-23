@@ -185,12 +185,12 @@ on post-fs-data
     chmod 0770 /data/vendor/port_bridge
 
     # Create netmgr log dir
-    mkdir /data/vendor/netmgr 0770 radio radio
-    chmod 0770 /data/vendor/netmgr
+#    mkdir /data/vendor/netmgr 0770 radio radio
+#    chmod 0770 /data/vendor/netmgr
 
     #create ipacm log dir
-    mkdir /data/vendor/ipa 0770 radio radio
-    chmod 0770 /data/vendor/ipa
+#    mkdir /data/vendor/ipa 0770 radio radio
+#    chmod 0770 /data/vendor/ipa
 
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
@@ -319,10 +319,10 @@ on post-fs-data
     # Wifi firmware reload path
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 
-    start ipacm-diag
-    start ipacm
-    start qti
-    start netmgrd
+#    start ipacm-diag
+#    start ipacm
+#    start qti
+#    start netmgrd
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -437,7 +437,7 @@ on boot
     mkdir /persist/bluetooth 0770 bluetooth bluetooth
 
     # Create NETMGR daemon socket area
-    mkdir /dev/socket/netmgr 0750 radio radio
+#    mkdir /dev/socket/netmgr 0750 radio radio
 
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
@@ -671,12 +671,12 @@ on property:vendor.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
     start imsrcsservice
 
-service ppd /system/vendor/bin/mm-pp-dpps
-    class late_start
-    user system
-    group system graphics
-    socket pps stream 0660 system system
-    disabled
+#service ppd /system/vendor/bin/mm-pp-dpps
+#    class late_start
+#    user system
+#    group system graphics
+#    socket pps stream 0660 system system
+#    disabled
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
@@ -835,32 +835,32 @@ service ftmd /system/bin/ftmdaemon
     disabled
     oneshot
 
-service netmgrd /system/vendor/bin/netmgrd
-    class main
-    user root
-    group root wifi wakelock radio inet
-    disabled
-    writepid /dev/cpuset/system-background/tasks
+#service netmgrd /system/vendor/bin/netmgrd
+#    class main
+##    user root
+#    group root wifi wakelock radio inet
+#    disabled
+#    writepid /dev/cpuset/system-background/tasks
 
-service ipacm-diag /system/vendor/bin/ipacm-diag
-    class main
-    user radio
-    socket ipacm_log_file dgram 660 radio radio
-    group radio diag oem_2901
-    disabled
+#service ipacm-diag /system/vendor/bin/ipacm-diag
+#    class main
+#    user radio
+#    socket ipacm_log_file dgram 660 radio radio
+#    group radio diag oem_2901
+#    disabled
 
-service ipacm /system/vendor/bin/ipacm
-    class main
-    user radio
-    group radio inet
-    disabled
+#service ipacm /system/vendor/bin/ipacm
+#    class main
+#    user radio
+#    group radio inet
+#    disabled
 
-service qti /system/vendor/bin/qti
-    class main
-    user radio
-    group radio oem_2901 diag usb net_admin
-    disabled
-    writepid /dev/cpuset/system-background/tasks
+#service qti /system/vendor/bin/qti
+#    class main
+#    user radio
+#    group radio oem_2901 diag usb net_admin
+#    disabled
+#    writepid /dev/cpuset/system-background/tasks
 
 service sensors /system/vendor/bin/sensors.qcom
     class core
