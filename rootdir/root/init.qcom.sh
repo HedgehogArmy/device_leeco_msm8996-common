@@ -88,6 +88,13 @@ start_msm_irqbalance_8939()
 	fi
 }
 
+start_msm_irqbalance()
+{
+	if [ -f /system/bin/msm_irqbalance ]; then
+		start msm_irqbalance
+	fi
+}
+
 start_copying_prebuilt_qcril_db()
 {
     if [ -f /system/vendor/qcril.db -a ! -f /data/misc/radio/qcril.db ]; then
@@ -309,3 +316,8 @@ fi
 cp /firmware/image/modem_pr/mbn_ota.txt /data/misc/radio/modem_config
 chown radio.radio /data/misc/radio/modem_config/mbn_ota.txt
 echo 1 > /data/misc/radio/copy_complete
+
+                            if [ -f /data/system/users/0/settings_global.xml ]; then
+			    sed -i 's/"multi_sim_data_call" value="1"/"multi_sim_data_call" value="-1"/g' /data/system/users/0/settings_global.xml
+			    restorecon /data/system/users/0/settings_global.xml
+                            fi
