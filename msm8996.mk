@@ -158,7 +158,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.configstore@1.0-service \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     copybit.msm8996 \
@@ -166,16 +165,9 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     libdisplayconfig \
-    libhwc2on1adapter \
-    libgenlock \
     liboverlay \
-    libtinyxml \
-    libqdMetaData \
-    libqdMetaData.system
-
-PRODUCT_PACKAGES += \
-    vendor.display.config@1.1 \
-    vendor.display.config@1.1_vendor
+    libqdMetaData.system \
+    libtinyxml
 
 # Doze mode
 #PRODUCT_PACKAGES += \
