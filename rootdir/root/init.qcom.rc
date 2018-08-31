@@ -53,9 +53,37 @@ on init
     chown root system /sys/fs/cgroup/memory/bg/tasks
     chmod 0660 /sys/fs/cgroup/memory/bg/tasks
 
-    # ZRAM setup
-    write /sys/block/zram0/comp_algorithm lz4
-    write /proc/sys/vm/page-cluster 0
+    mkdir /dev/cpuset/system/performance 0750 root system
+    write /dev/cpuset/system/performance/cpus 0
+    write /dev/cpuset/system/performance/mems 0
+    chown system system /dev/cpuset/system/performance/tasks
+    chmod 0660 /dev/cpuset/system/performance/tasks
+    mkdir /dev/cpuset/system/background 0750 root system
+    write /dev/cpuset/system/background/cpus 0
+    write /dev/cpuset/system/background/mems 0
+    chown system system /dev/cpuset/system/background/tasks
+    chmod 0660 /dev/cpuset/system/background/tasks
+    mkdir /dev/cpuset/application 0750 root system
+    write /dev/cpuset/application/cpus 0
+    write /dev/cpuset/application/mems 0
+    chown system system /dev/cpuset/application/tasks
+    chmod 0660 /dev/cpuset/application/tasks
+    mkdir /dev/cpuset/application/performance 0750 root system
+    write /dev/cpuset/application/performance/cpus 0
+    write /dev/cpuset/application/performance/mems 0
+    chown system system /dev/cpuset/application/performance/tasks
+    chmod 0660 /dev/cpuset/application/performance/tasks
+    mkdir /dev/cpuset/application/background 0750 root system
+    write /dev/cpuset/application/background/cpus 0
+    write /dev/cpuset/application/background/mems 0
+    chown system system /dev/cpuset/application/background/tasks
+    chmod 0660 /dev/cpuset/application/background/tasks
+    # set default schedTune value for foreground/top-app (only affects EAS)
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+    write /dev/stune/rt/schedtune.boost 30
+    write /dev/stune/rt/schedtune.prefer_idle 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -75,7 +103,6 @@ on fs
 
 on late-fs
     # boot time fs tune
-    write /sys/block/sda/queue/iostats 0
     write /sys/block/sda/queue/iosched/slice_idle 0
     write /sys/block/sda/queue/read_ahead_kb 2048
     write /sys/block/sda/queue/nr_requests 256
@@ -277,11 +304,25 @@ on post-fs-data
     mkdir /data/misc/SelfHost/Running/ 2750 system shell
     mkdir /data/misc/SelfHost/socket/ 2770 system system
 
+    #Create PERFD deamon related dirs
+    setprop ro.min_freq_0 384000
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    rm /data/system/perfd/default_values
+    chmod 2770 /data/system/perfd
+
+    # Create IOP deamon related dirs
+    mkdir /data/misc/iop 0770 root system
+
     # NFC local data and nfcee xml storage
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
     mkdir /data/vendor/nfc 0770 nfc nfc
     mkdir /data/vendor/nfc/param 0770 nfc nfc
+
+    #Create IOP  deamon related dirs
+    mkdir /data/vendor/iop 0770 root system
 
     # Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
@@ -436,6 +477,28 @@ on boot
     mkdir /persist/drm 0770 system system
     mkdir /persist/bluetooth 0770 bluetooth bluetooth
 
+    # Set schedutil permissions
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "schedutil"
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/schedutil/up_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu3/cpufreq/schedutil/up_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/schedutil/down_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us
+    chown system system /sys/devices/system/cpu/cpu3/cpufreq/schedutil/down_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/schedutil/up_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu3/cpufreq/schedutil/up_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/schedutil/down_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us
+    chmod 0664 /sys/devices/system/cpu/cpu3/cpufreq/schedutil/down_rate_limit_us
+
     # Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
@@ -557,10 +620,6 @@ on boot
     chmod 660 /sys/class/leds/green/start_idx
     chmod 660 /sys/class/leds/blue/start_idx
 
-    #Quickset IR
-    chown system system /sys/remote/enable
-    chmod 0666 /sys/remote/enable
-
     # Don't reset entire SoC on individual subsystem crash
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
@@ -572,9 +631,7 @@ on boot
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed"
     # end boot time fs tune
-    write /sys/block/sda/queue/read_ahead_kb 512
-    write /sys/block/sda/queue/nr_requests 512
-    write /sys/block/sda/queue/iostats 1
+    write /sys/block/sda/queue/read_ahead_kb 128
     # CPE fw_name used by sound trigger HAL
     chown media audio /sys/kernel/wcd_cpe0/fw_name
     # Enable ZRAM on boot_complete
@@ -613,6 +670,14 @@ service qseecomd /vendor/bin/qseecomd
    class core
    user root
    group root
+   writepid /dev/cpuset/system-background/tasks
+
+service perfd /vendor/bin/perfd
+   class main
+   user root
+   group root readproc
+   disabled
+   socket perfd seqpacket 0666 root system
    writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine-8996.conf}
@@ -677,6 +742,12 @@ service ppd /system/vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
+service perfd /system/vendor/bin/perfd
+   class main
+   user root
+   group root readproc
+   disabled
+
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
@@ -703,17 +774,15 @@ service fossctl /system/bin/ppd foss:on
 
 on property:sys.boot_completed=1
     start fossctl
+    start perfd
+    
+    socket perfd seqpacket 0666 root system
+    writepid /dev/cpuset/system-background/tasks
 
 service tlocd /system/bin/tloc_daemon
     class late_start
     user system
     group drmrpc gps net_raw
-
-service energy-awareness /system/vendor/bin/energy-awareness
-    class main
-    user root
-    group system
-    oneshot
 
 service mdtpd /system/vendor/bin/mdtpd
     class late_start
@@ -955,6 +1024,13 @@ service charger_monitor /system/bin/charger_monitor
     user root
     group root
     disabled
+
+service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
+    class main
+    user root
+    group root
+    disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start

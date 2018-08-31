@@ -135,7 +135,7 @@ PRODUCT_PACKAGES += \
     camera.msm8996 \
     libshims_camera \
     libshims_qcamera-daemon \
-    Camera2
+    Snap
 
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.camera.device@1.0 \
@@ -178,13 +178,17 @@ PRODUCT_PACKAGES += \
     vendor.display.config@1.1_vendor
 
 # Doze mode
-#PRODUCT_PACKAGES += \
-#    Doze
+# PRODUCT_PACKAGES += \
+#     Doze
 
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service
+
+#Tether
+PRODUCT_PACKAGES += \
+    android.hardware.tetheroffload.control@1.0
 
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
@@ -219,12 +223,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/sap.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sap.conf \
     $(LOCAL_PATH)/gps/etc/xtwifi.conf:$(TARGET_COPY_OUT_VENDOR)/etc/xtwifi.conf
 
-# Healthd
-PRODUCT_PACKAGES += \
-    android.hardware.health@1.0-impl \
-    android.hardware.health@1.0-convert \
-    android.hardware.health@1.0-service
-
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
@@ -235,10 +233,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ims-ext-common
 
+# IRQ
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
+
 # IPA Manager
-#PRODUCT_PACKAGES += \
-#    ipacm \
-#    IPACM_cfg.xml
+PRODUCT_PACKAGES += \
+    ipacm \
+    IPACM_cfg.xml
 
 # IPC router config
 PRODUCT_COPY_FILES += \
@@ -292,7 +294,13 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service-qti
+    android.hardware.power@1.0-service.leeco
+
+    PRODUCT_PROPERTY_OVERRIDES += ro.hardware.power=leeco
+
+# Dumpstate HAL
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.0-service.leeco
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
@@ -350,7 +358,7 @@ PRODUCT_COPY_FILES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service \
+    android.hardware.usb@1.0-service.msm8996 \
     com.android.future.usb.accessory
 
 # Vibrator

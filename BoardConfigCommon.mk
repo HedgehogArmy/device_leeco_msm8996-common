@@ -51,7 +51,7 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/leeco/msm8996
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_CLANG_COMPILE := true
 
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 
@@ -116,6 +116,8 @@ BOARD_QTI_CAMERA_32BIT_ONLY := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
+# Before enabling lineage charger you have to fix it!
+WITH_LINEAGE_CHARGER := false
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_leeco_msm8996
@@ -131,7 +133,7 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 
 # Power
 TARGET_HAS_NO_WIFI_STATS := true
-TARGET_USES_INTERACTION_BOOST := true
+TARGET_USES_AOSP := true
 
 # CNE and DPM
 BOARD_USES_QCNE := true
@@ -179,6 +181,8 @@ USE_DEVICE_SPECIFIC_GPS := true
 
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
+BOARD_HAL_STATIC_LIBRARIES := libdumpstate.leeco
+
 # HIDL
 DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
@@ -212,11 +216,7 @@ WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
-# Recovery
 #RECOVERY_VARIANT := twrp
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
-#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm
-TARGET_RELEASETOOLS_EXTENSIONS := device/qcom/common
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -236,15 +236,11 @@ TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 #TWRP_EVENT_LOGGING := true
 else
-#USE_CLANG_PLATFORM_BUILD := true
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/recovery/fstab.qcom
 endif
 
 # SELinux
-#include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
-
-# Enable real time lockscreen charging current values
-BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
+# include device/qcom/sepolicy/sepolicy.mk
+# BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 -include vendor/leeco/msm8996-common/BoardConfigVendor.mk

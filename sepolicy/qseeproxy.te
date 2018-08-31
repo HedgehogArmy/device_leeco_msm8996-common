@@ -1,1 +1,1 @@
-#binder_call(qseeproxy, servicemanager)
+binder_call(qseeproxy, servicemanager)
